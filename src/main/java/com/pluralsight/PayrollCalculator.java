@@ -37,6 +37,7 @@ public class PayrollCalculator {
         }
 
         for (Employee currentEmployee : employees) {
+            System.out.println(currentEmployee);
             currentEmployee.display();
         }
 
@@ -47,6 +48,8 @@ public class PayrollCalculator {
         String name = employeeDataText[1];
         double hoursWorked = Double.parseDouble(employeeDataText[2]);
         double payRate = Double.parseDouble(employeeDataText[3]);
-        return new Employee(employeeId, name, hoursWorked, payRate);
+
+        Employee employee = new Employee(employeeId, name, hoursWorked, payRate);
+        return employee;
     }
 }
