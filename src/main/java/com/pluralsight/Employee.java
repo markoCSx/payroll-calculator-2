@@ -17,9 +17,22 @@ public class Employee {
         return this.employeeId;
     }
 
+    public String getName () {
+        return this.name;
+    }
+
     public double getGrossPay () {
         double grossPay = this.hoursWorked * this.payRate;
         return grossPay;
+    }
+
+    public void display () {
+        System.out.printf("""
+                Employee ID: %d
+                Employee Name: %s
+                Gross pay: %.2f
+                __________________
+                """, getEmployeeId(), getName(), getGrossPay());
     }
 
 }
