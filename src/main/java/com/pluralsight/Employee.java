@@ -21,6 +21,14 @@ public class Employee {
         return this.name;
     }
 
+    public double getHoursWorked () {
+        return hoursWorked;
+    }
+
+    public double getPayRate () {
+        return payRate;
+    }
+
     public double getGrossPay () {
         double grossPay = this.hoursWorked * this.payRate;
         return grossPay;

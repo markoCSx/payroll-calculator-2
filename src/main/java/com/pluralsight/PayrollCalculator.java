@@ -5,19 +5,37 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class PayrollCalculator {
 
+    public static Scanner userInput = new Scanner(System.in);
+
     public static void main(String[] args) {
 
+        String userText;
         FileReader fileReader;
         BufferedReader bufferedReader;
-        String fileName = "src/main/resources/employees.csv";
+
+        //Prompting fileName
+        String fileName;
+        System.out.println("Enter the name of the file to process: ");
+        userText = userInput.nextLine();
+        fileName = userText;
+        //Prompting file to create
+        String createFile;
+        System.out.println("Enter the name of the payroll file to create: ");
+        userText = userInput.nextLine();
+        createFile = userText;
+
+        String fileDirectory = "src/main/resources/" + fileName;
+
+        //list of employees in the text file
         ArrayList<Employee> employees = new ArrayList<>();
 
         try {
-            fileReader = new FileReader(fileName);
+            fileReader = new FileReader(fileDirectory);
             bufferedReader = new BufferedReader(fileReader);
 
             String line = bufferedReader.readLine();
@@ -40,6 +58,7 @@ public class PayrollCalculator {
             System.out.println(currentEmployee);
             currentEmployee.display();
         }
+
 
     }
 
