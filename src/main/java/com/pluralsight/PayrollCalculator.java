@@ -1,10 +1,8 @@
 package com.pluralsight;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -22,12 +20,12 @@ public class PayrollCalculator {
         String fileName;
         System.out.println("Enter the name of the file to process: ");
         userText = userInput.nextLine();
-        fileName = userText;
+        fileName = userText.strip().toLowerCase();
         //Prompting file to create
         String createFile;
         System.out.println("Enter the name of the payroll file to create: ");
         userText = userInput.nextLine();
-        createFile = userText;
+        createFile = "src/main/resources/" + userText.strip().toLowerCase();
 
         String fileDirectory = "src/main/resources/" + fileName;
 
@@ -46,6 +44,7 @@ public class PayrollCalculator {
                 }
                 line = bufferedReader.readLine();
             }
+            fileReader.close();
         }
         catch (FileNotFoundException e) {
             System.err.println("IDK" + e.getMessage() );
@@ -54,12 +53,18 @@ public class PayrollCalculator {
             System.err.println("IDK" + e.getMessage() );
         }
 
-        for (Employee currentEmployee : employees) {
-            System.out.println(currentEmployee);
-            currentEmployee.display();
+        try {
+            FileWriter fileWriter = new FileWriter(createFile);
+            BufferedWriter bufWriter = new BufferedWriter(fileWriter);
+
+            bufWriter.write("id|name|gross pay\n");
+            for (Employee currentEmployee : employees) {
+                bufWriter.write(String.format("%d|%s|%.2f\n", currentEmployee.getEmployeeId(), currentEmployee.getName(), currentEmployee.getGrossPay()));
+            }
+            bufWriter.close();
+        } catch (IOException e) {
+            System.err.println("IDK" + e.getMessage() );
         }
-
-
     }
 
     public static Employee constructEmployee (String[] employeeDataText) {
